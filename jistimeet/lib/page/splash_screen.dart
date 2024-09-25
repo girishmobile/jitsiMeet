@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:jistimeet/core/string_utils.dart';
 import 'package:jistimeet/page/dashboard_screen.dart';
-import 'package:jistimeet/page/main_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -32,8 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return  Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Image.asset(
-              "assets/icons/ic_logo.png"
+        child: Image.asset(icLogo
         ),
       ),
     );

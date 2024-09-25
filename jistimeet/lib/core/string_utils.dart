@@ -1,0 +1,14 @@
+const String appName="Jitsi Meet";
+const String icLogo="assets/icons/ic_logo.png";
+const String callDesc="This Room name will identify your video call room.\nIt should be unique and relevant to your discussion topic.";
+const String displayName="Display Name";
+const String enterDisplayName="Enter display name";
+const String emailID="Email ID";
+const String enterEmailID="Enter email id";
+const String roomName="Room Name";
+const String enterRoomName="Enter room name";
+const String pleaseEnterRoomName="Please enter room name";
+const String subject="Subject";
+const String enterSubject="Enter subject";
+const String pleaseEnterSubject="Please enter subject";
+const String joinMeeting="Join Meeting";

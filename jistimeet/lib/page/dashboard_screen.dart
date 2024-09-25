@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jistimeet/core/component.dart';
+import 'package:jistimeet/core/constants/num_constants.dart';
+import 'package:jistimeet/core/string_utils.dart';
+import 'package:jistimeet/provider/ThemeProvider.dart';
 import 'package:jistimeet/provider/meeting_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -9,8 +12,23 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      //backgroundColor: Colors.white,
+
+      appBar: AppBar(
+       // backgroundColor: Colors.white,
+        actions: [
+          Switch(
+            value: themeProvider.themeMode == ThemeMode.dark,
+            onChanged: (value) {
+              // Toggle the theme based on the switch
+              themeProvider.toggleTheme();
+            },
+          ),
+        ],
+      ),
       body: Consumer<MeetingProvider>(builder: (context, provider, child) {
         return Form(
           key: provider.formKey,
@@ -18,7 +36,7 @@ class DashboardScreen extends StatelessWidget {
             width: size.width,
             height: size.height,
             alignment: Alignment.center,
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(sixteen),
             child: ListView(
               children: [
                 Column(
@@ -26,80 +44,79 @@ class DashboardScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: size.height * 0.02,
+                      height: size.height * zero02,
                     ),
                     Align(
                       alignment: Alignment.center,
                       child: Image.asset(
                           fit: BoxFit.fitWidth,
-                          width: size.width * 0.6,
-                          height: size.height * 0.1,
-                          "assets/icons/ic_logo.png"),
+                          width: size.width * zero6,
+                          height: size.height * zero1,
+                          icLogo),
                     ),
                     Align(
                       alignment: Alignment.center,
                       child: commonText(
-                          fontSize: 16,
-                          top: 10,
+                          fontSize: sixteen,
+                          top: ten,
                           fontWeight: FontWeight.w600,
                           textAlign: TextAlign.center,
-                          text:
-                              "This Room name will identify your video call room.\nIt should be unique and relevant to your discussion topic."),
+                          text: callDesc),
                     ),
-                    commonText(top: size.height * 0.03),
+                    commonText(top: size.height * zero03),
                     commonTextFiled(
-                      hint: "Enter display name",
+                      hint: enterDisplayName,
                       onChanged: (value) {
-                        provider.setDisplayName=value;
+                        provider.setDisplayName = value;
                       },
                       controller: provider.tetDisplayName,
-                      top: 5,
+                      top: five,
                     ),
-                    commonText(top: 15, text: "Email ID"),
+                    commonText(top: fifteen, text: emailID),
                     commonTextFiled(
                         onChanged: (value) {
-                          provider.setEmail=value;
+                          provider.setEmail = value;
                         },
-                        hint: "Enter email id",
+                        hint: enterEmailID,
                         controller: provider.tetEmail,
-                        top: 5),
-                    commonText(top: 15, text: "Room Name"),
+                        top: five),
+                    commonText(top: fifteen, text: roomName),
                     commonTextFiled(
                         onChanged: (value) {
-                          provider.setRoomName=value;
+                          provider.setRoomName = value;
                         },
-                        hint: "Enter room name",
+                        hint: enterRoomName,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter room name';
+                            return pleaseEnterRoomName;
                           }
                           return null; // return null if the input is valid
                         },
                         controller: provider.tetRoomName,
-                        top: 5),
-                    commonText(top: 15, text: "Subject"),
+                        top: five),
+                    commonText(top: fifteen, text: subject),
                     commonTextFiled(
-                        hint: "Enter subject",
+                        hint: enterSubject,
                         onChanged: (value) {
-                          provider.setSubject=value;
+                          provider.setSubject = value;
                         },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter subject';
+                            return pleaseEnterSubject;
                           }
                           return null; // return null if the input is valid
                         },
                         controller: provider.tetSubject,
-                        top: 5),
-                    const SizedBox(height: 40),
+                        top: five),
+                    const SizedBox(height: forty),
                     SizedBox(
                       width: size.width,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          elevation: 0,
+                          elevation: zero,
                           shape: RoundedRectangleBorder(
                             borderRadius:
-                                BorderRadius.circular(8), // <-- Radius
+                                BorderRadius.circular(eight), // <-- Radius
                           ),
                           backgroundColor: Colors.blue, // background
                           foregroundColor: Colors.white, // foreground
@@ -110,7 +127,7 @@ class DashboardScreen extends StatelessWidget {
                             await provider.joinMeeting();
                           }
                         },
-                        child: const Text("Join Meeting"),
+                        child: commonText(text: joinMeeting,color: Colors.white),
                       ),
                     ),
                   ],

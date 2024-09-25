@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jistimeet/core/component.dart';
 import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -23,14 +24,12 @@ class _MainPageState extends State<MainPage> {
   }
 
   Future<void> _requestPermissions() async {
-    // Request camera and microphone permissions
     Map<Permission, PermissionStatus> statuses = await [
       Permission.camera,
       Permission.microphone,
     ].request();
 
     if (statuses[Permission.camera]?.isDenied ?? true) {
-      // Permissions are denied, show a dialog or error
       _showPermissionError();
     }
   }
@@ -70,13 +69,20 @@ class _MainPageState extends State<MainPage> {
 
       var options = JitsiMeetConferenceOptions(
         serverURL: "https://meet.jit.si",
-        room: "jitsiIsAwesomeWithFlutter",
+        room: "jitsiIsRedefineSolutions",
+
         configOverrides: {
           "startWithAudioMuted": false,
           "startWithVideoMuted": false,
           "subject": subjectText,
         },
-        featureFlags: {"unsaferoomwarning.enabled": false},
+
+        featureFlags: {
+
+          "unsaferoomwarning.enabled": true,
+          "security-options.enabled": false,
+
+        },
         userInfo: JitsiMeetUserInfo(
             displayName: displayName.text.isEmpty ? "Test" : displayName.text,
             email: email.text.isEmpty ? "test@gmail.com" : email.text),
@@ -114,16 +120,27 @@ class _MainPageState extends State<MainPage> {
           child: ListView(
             children: [
               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
                   SizedBox(
                     height: size.height * 0.05,
                   ),
                   Align(
                     alignment: Alignment.center,
+                    child: Image.asset(
+                      fit: BoxFit.fitWidth,
+                      width: size.width*0.6,height: size.height*0.1,
+                        "assets/icons/ic_logo.png"
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
                     child: commonText(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                        top: 10,
+                        fontWeight: FontWeight.w600,
                         textAlign: TextAlign.center,
                         text:
                             "This Room name will identify your video call room.\nIt should be unique and relevant to your discussion topic."),
@@ -191,67 +208,5 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  commonText(
-      {String? text,
-      double? top,
-      TextAlign? textAlign,
-      double? fontSize,
-      FontWeight? fontWeight}) {
-    return Container(
-        margin: EdgeInsets.only(top: top ?? 0),
-        child: Text(
-          textAlign: textAlign,
-          text ?? 'Display Name',
-          style: TextStyle(
-              color: Colors.black,
-              fontSize: fontSize ?? 14,
-              fontWeight: fontWeight ?? FontWeight.w400),
-        ));
-  }
 
-  commonTextFiled(
-      {TextEditingController? controller,
-      String? hint,
-      double? top,
-      String? Function(String?)? validator}) {
-    return Container(
-      margin: EdgeInsets.only(top: top ?? 0),
-      child: TextFormField(
-        validator: validator,
-        style: const TextStyle(
-            color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
-        controller: controller,
-        decoration: InputDecoration(
-          //  labelText: hint??"Room Name",
-          filled: true,
-          hintStyle: const TextStyle(
-              color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w400),
-          hintText: hint,
-          // <-- add filled
-          fillColor: Colors.white,
-          // <--- and this
-
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: Colors.grey.withOpacity(0.20),
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: Colors.grey.withOpacity(0.20),
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: Colors.grey.withOpacity(0.20),
-              width: 1,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }

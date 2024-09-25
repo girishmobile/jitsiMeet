@@ -12,7 +12,7 @@
         tools:ignore="UnusedAttribute" />
     <application
         tools:replace="android:label"
-        android:label="jistimeet"
+        android:label="Jitsi Meet "
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -22,7 +22,7 @@
             android:taskAffinity=""
             android:theme="@style/LaunchTheme"
 
-            android:label="Jitsi_app"
+            android:label="Jitsi Meet"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">

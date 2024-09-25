@@ -28,13 +28,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Text(
-          "Jitsi Meet",
-          style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.w800, color: Colors.black),
+        child: Image.asset(
+              "assets/icons/ic_logo.png"
         ),
       ),
     );

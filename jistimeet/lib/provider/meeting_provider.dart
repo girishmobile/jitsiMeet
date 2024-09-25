@@ -35,7 +35,10 @@ class MeetingProvider with ChangeNotifier {
   }
 
   joinMeeting(
-      {required TextEditingController roomController, required TextEditingController subjectController, required TextEditingController displayName, required TextEditingController email }) async {
+      {required TextEditingController roomController,
+      required TextEditingController subjectController,
+      required TextEditingController displayName,
+      required TextEditingController email}) async {
     await requestPermissions();
     String roomName = roomController.text;
     String subjectText = subjectController.text;
@@ -46,30 +49,23 @@ class MeetingProvider with ChangeNotifier {
 
     try {
       var jitsiMeet = JitsiMeet();
-
       var options = JitsiMeetConferenceOptions(
         serverURL: "https://meet.jit.si",
         room: "jitsiIsRedefineSolutions",
-
         configOverrides: {
           "startWithAudioMuted": false,
           "startWithVideoMuted": false,
           "subject": subjectText,
         },
-
         featureFlags: {
-
           "unsaferoomwarning.enabled": true,
           "security-options.enabled": false,
-
         },
         userInfo: JitsiMeetUserInfo(
             displayName: displayName.text.isEmpty ? "Test" : displayName.text,
             email: email.text.isEmpty ? "test@gmail.com" : email.text),
       );
       jitsiMeet.join(options);
-
-      // await JitsiMeetFlutterSdk.joinMeeting(options);
     } catch (error) {
       debugPrint("-------Error: $error");
     }

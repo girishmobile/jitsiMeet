@@ -22,12 +22,15 @@ commonTextFiled(
     {TextEditingController? controller,
     String? hint,
     double? top,
+void Function(String)? onChanged,
     String? Function(String?)? validator}) {
   return Container(
     margin: EdgeInsets.only(top: top ?? 0),
     child: TextFormField(
       validator: validator,
+      onChanged: onChanged,
       style: const TextStyle(
+
           color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
       controller: controller,
       decoration: InputDecoration(

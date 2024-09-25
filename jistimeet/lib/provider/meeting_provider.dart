@@ -5,19 +5,40 @@ import 'package:permission_handler/permission_handler.dart';
 class MeetingProvider with ChangeNotifier {
   String _roomName = '';
   String _subject = '';
+  String _displayName = '';
+  String _email = '';
+  final tetDisplayName = TextEditingController();
+  final tetEmail = TextEditingController();
+  final tetRoomName = TextEditingController();
+  final tetSubject = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
-  // Getters
+  // Getters display name
+  String get displayName => _displayName;
+  // Getters email
+  String get email => _email;
+  // Getters room name
   String get roomName => _roomName;
-
+  // Getters subject
   String get subject => _subject;
 
+  set setDisplayName(String value) {
+    _displayName = value;
+    notifyListeners();
+  }
+
+  set setEmail(String value) {
+    _email = value;
+    notifyListeners();
+  }
+
   // Setters
-  void setRoomName(String value) {
+  set setRoomName(String value) {
     _roomName = value;
     notifyListeners();
   }
 
-  void setSubject(String value) {
+  set setSubject(String value) {
     _subject = value;
     notifyListeners();
   }
@@ -34,14 +55,11 @@ class MeetingProvider with ChangeNotifier {
     }
   }
 
-  joinMeeting(
-      {required TextEditingController roomController,
-      required TextEditingController subjectController,
-      required TextEditingController displayName,
-      required TextEditingController email}) async {
+  joinMeeting() async {
     await requestPermissions();
-    String roomName = roomController.text;
-    String subjectText = subjectController.text;
+    String roomName = _roomName;
+    String subjectText = _subject;
+
 
     if (roomName.isEmpty) {
       return;
@@ -62,8 +80,8 @@ class MeetingProvider with ChangeNotifier {
           "security-options.enabled": false,
         },
         userInfo: JitsiMeetUserInfo(
-            displayName: displayName.text.isEmpty ? "Test" : displayName.text,
-            email: email.text.isEmpty ? "test@gmail.com" : email.text),
+            displayName: _displayName.isEmpty ? "Test" : _displayName,
+            email: _email.isEmpty ? "test@gmail.com" : _email),
       );
       jitsiMeet.join(options);
     } catch (error) {

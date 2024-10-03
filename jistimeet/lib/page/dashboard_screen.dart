@@ -82,10 +82,11 @@ class DashboardScreen extends StatelessWidget {
                         top: five),
                     commonText(top: fifteen, text: roomName),
                     commonTextFiled(
+                        hint: enterRoomName,
                         onChanged: (value) {
                           provider.setRoomName = value;
                         },
-                        hint: enterRoomName,
+
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return pleaseEnterRoomName;

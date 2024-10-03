@@ -8,6 +8,8 @@ import 'package:jistimeet/provider/meeting_provider.dart';
 
 import 'package:provider/provider.dart';
 
+import 'joinScreen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
               darkTheme: darkMode,
 
               //theme: ThemeData.light(),
-              home:const SplashScreen() ,
+              home:const Joinscreen() ,
             );
           }
       ),

@@ -66,18 +66,24 @@ class MeetingProvider with ChangeNotifier {
     }
 
     try {
+      
       var jitsiMeet = JitsiMeet();
       var options = JitsiMeetConferenceOptions(
-        serverURL: "https://meet.jit.si",
+        //serverURL: "https://meet.jit.si",
+        serverURL: "https://meet.jit.si/jitsiIsRedefineSolutions#config.enableLobby=false&config.requireDisplayName=false&config.disableModerator=true",
         room: "jitsiIsRedefineSolutions",
-        configOverrides: {
+            configOverrides: {
+              "requireDisplayName": false,
+
           "startWithAudioMuted": false,
+              "disableModeratorIndicator": false,
           "startWithVideoMuted": false,
           "subject": subjectText,
         },
         featureFlags: {
           "unsaferoomwarning.enabled": true,
           "security-options.enabled": false,
+          "meeting-password.enabled": false,
         },
         userInfo: JitsiMeetUserInfo(
             displayName: _displayName.isEmpty ? "Test" : _displayName,
